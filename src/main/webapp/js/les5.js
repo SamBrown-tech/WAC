@@ -1,25 +1,25 @@
 function initPage() {
 	fetch('https://ipapi.co/json/')
-		.then(function(response) {
-			return response.json();
-		})
-		.then(function(myJson) {
-			document.querySelector("#country").innerHTML += myJson.country;
-			document.querySelector("#country_name").innerHTML += myJson.country_name;
-			document.querySelector("#region").innerHTML += myJson.region;
-			document.querySelector("#city").innerHTML += myJson.city;
-			document.querySelector("#postal").innerHTML += myJson.postal;
-			document.querySelector("#latitude").innerHTML += myJson.latitude;
-			document.querySelector("#longitude").innerHTML += myJson.longitude;
-			document.querySelector("#ip").innerHTML += myJson.ip;
-			
-			var lat = myJson.latitude;
-			var long = myJson.longitude;
-			var city = myJson.city;
-			showWeather(lat,long,city);
-			loadCountries();
-			getMyLocation();
-		})			
+	.then(function(response) {
+		return response.json();
+	})
+	.then(function(myJson) {
+		document.querySelector("#country").innerHTML += myJson.country;
+		document.querySelector("#country_name").innerHTML += myJson.country_name;
+		document.querySelector("#region").innerHTML += myJson.region;
+		document.querySelector("#city").innerHTML += myJson.city;
+		document.querySelector("#postal").innerHTML += myJson.postal;
+		document.querySelector("#latitude").innerHTML += myJson.latitude;
+		document.querySelector("#longitude").innerHTML += myJson.longitude;
+		document.querySelector("#ip").innerHTML += myJson.ip;
+		
+		var lat = myJson.latitude;
+		var long = myJson.longitude;
+		var city = myJson.city;
+		showWeather(lat,long,city);
+		loadCountries();
+		getMyLocation();
+	})			
 }
 
 function showWeather(lat, long, city) {
@@ -48,14 +48,6 @@ function showWeather(lat, long, city) {
 			var current_time = new Date().getTime();
 			
 			window.localStorage.setItem(stad, JSON.stringify(weather));
-//			
-//			for(country in window.localStorage){
-//				var c_storage = JSON.parse(window.localStorage.getItem(country));
-//				console.log(c_storage.expiration_time);
-//				if(current_time < c_storage.expiration_time){
-//					localStorage.removeItem(country);
-//				}
-//			}		
 		})
 }
 
@@ -65,7 +57,6 @@ function loadCountries() {
 		.then(response => response.json())
 		.then(function(myJson){
 			for(const country of myJson){
-				console.log(country.lat + "country");
 				var table = document.getElementById("table");
 				var row = table.insertRow(1);
 				var cell1 = row.insertCell(0);
@@ -77,16 +68,34 @@ function loadCountries() {
 				var cell7 = row.insertCell(6);
 				cell6.className = "hide";
 				cell7.className = "hide";
-								
+				
+				var stad = country.Capital;
 				cell1.innerHTML = country.Name;
-				cell2.innerHTML = country.Capital;
+				cell2.innerHTML = stad;
 				cell3.innerHTML = country.Region;
 				cell4.innerHTML = country.Surface;
 				cell5.innerHTML = country.Population;
 				cell6.innerHTML = country.Latitude;
-				cell7.innerHTML = country.Longitude;				
+				cell7.innerHTML = country.Longitude;
+				var current_time = new Date().getTime();
+				var storage = window.localStorage.getItem(stad);
+				
+				if(storage != null){
+					storage_array = JSON.parse(storage);
+					expirationtime = storage_array.expiration_time;
+					city = storage_array.stad;
+					console.log(current_time + ' is tijd van nu');
+					console.log(expirationtime + ' is tijd van storage')
+					
+					if(current_time > expirationtime){
+						localStorage.removeItem(city);
+						console.log(city + " is uit de lokale storage verwijderd.");
+						
+					}
+				}
+					
 			}
-			
+		
 			table = document.querySelectorAll("#table tr");
 			for	(const row of table){
 				row.addEventListener("click", function(){

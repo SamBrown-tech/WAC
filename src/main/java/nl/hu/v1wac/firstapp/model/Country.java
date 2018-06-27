@@ -2,14 +2,13 @@ package nl.hu.v1wac.firstapp.model;
 
 public class Country {
 	private String code;
-	private String iso3;
 	private String name;
 	private String capital;
 	private String continent;
 	private String region;
 	private double surface;
 	private int population;
-	private String government;
+	private String governmentform;
 	private double latitude;
 	private double longitude;
 
@@ -22,12 +21,6 @@ public class Country {
 		this.code = cd;
 	}
 
-	public String getIso3() {
-		return iso3;
-	}
-	public void setIso3(String cd) {
-		this.iso3 = cd;
-	}
 	public String getName() {
 		return name;
 	}
@@ -66,12 +59,12 @@ public class Country {
 	public int getPopulation() {
 		return population;
 	}
-	public void setGovernment(String cd) {
-		this.government = cd;
+	public void setGovernmentform(String cd) {
+		this.governmentform = cd;
 	}
 
-	public String getGovernment() {
-		return government;
+	public String getGovernmentform() {
+		return governmentform;
 	}
 
 	public void setLatitude(double cd) {

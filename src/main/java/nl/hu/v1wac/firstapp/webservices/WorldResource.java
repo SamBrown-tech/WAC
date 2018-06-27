@@ -110,8 +110,7 @@ public class WorldResource {
 		job.add("Code", country.getCode());
 		job.add("Population", country.getPopulation());
 		job.add("Continent", country.getContinent());
-		job.add("Government", country.getGovernment());
-		job.add("Iso3", country.getIso3());
+		job.add("Government", country.getGovernmentform());
 		job.add("Latidude", country.getLatitude());
 		job.add("Longitude", country.getLongitude());
 		job.add("Region", country.getRegion());

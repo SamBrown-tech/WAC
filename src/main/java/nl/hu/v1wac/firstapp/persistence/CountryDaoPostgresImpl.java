@@ -1,6 +1,5 @@
 package nl.hu.v1wac.firstapp.persistence;
 
-import nl.hu.v1wac.firstapp.model.Country;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,33 +12,24 @@ import nl.hu.v1wac.firstapp.model.Country;
 public class CountryDaoPostgresImpl extends PostgresBaseDao implements CountryDao {
 
 	@Override
-	public boolean save(String code, String iso3, String nm, String cap, String ct, String reg, double sur, int pop, String gov, double lat, double lng) throws SQLException, ClassNotFoundException {
+	public boolean save(String code, String name, String capital, String continent, String region, double surfacearea, int population, String governmentform) throws SQLException, ClassNotFoundException {
         Connection conn = getConnection();
 
         if(code != null) {
-            String insert = "INSERT INTO COUNTRY (CODE, ISO3, NAME, CONTINENT, REGION, SURFACEAREA, INDEPYEAR, POPULATION, LIFEEXPECTANCY, GNP, GNPOLD, LOCALNAME, GOVERNMENTFORM, HEADOFSTATE, LATITUDE, LONGITUDE, CAPITAL)"
-            		+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String insert = "INSERT INTO country (code, name, capital, continent, region, surfacearea, population, governmentform)"
+            		+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stat = conn.prepareStatement(insert);
             stat.setString(1, code);
-            stat.setString(2, iso3);
-            stat.setString(3, nm);
-            stat.setString(4, ct);
-            stat.setString(5, reg);
-            stat.setDouble(6, sur);
-            stat.setInt(7, 1990);
-            stat.setInt(8, pop);
-            stat.setInt(9, 88);
-            stat.setDouble(10, 1234);
-            stat.setDouble(11, 4314);
-            stat.setString(12, "kak");
-            stat.setString(13, gov);
-            stat.setString(14, "Niek Hamoen");
-            stat.setDouble(15, lat);
-            stat.setDouble(16, lng);
-            stat.setString(17, cap);
+            stat.setString(2, name);
+            stat.setString(3, capital);
+            stat.setString(4, continent);
+            stat.setString(5, region);
+            stat.setDouble(6, surfacearea);
+            stat.setInt(7, population);
+            stat.setString(8, governmentform);
             stat.executeUpdate();
-            System.out.println(nm + " is toegevoegd\n");
+            System.out.println(name + " is toegevoegd");
             return true;
         }
         return false;
@@ -57,13 +47,12 @@ public class CountryDaoPostgresImpl extends PostgresBaseDao implements CountryDa
         while (rs.next()) {
             Country country = new Country();
             country.setCode(rs.getString("CODE"));
-            country.setIso3(rs.getString("ISO3"));
             country.setName(rs.getString("NAME"));
             country.setContinent(rs.getString("CONTINENT"));
             country.setRegion(rs.getString("REGION"));
             country.setSurface(rs.getDouble("SURFACEAREA"));
             country.setPopulation(rs.getInt("POPULATION"));
-            country.setGovernment(rs.getString("GOVERNMENTFORM"));
+            country.setGovernmentform(rs.getString("GOVERNMENTFORM"));
             country.setLatitude(rs.getInt("LATITUDE"));
             country.setLongitude(rs.getInt("LONGITUDE"));
             country.setCapital(rs.getString	("CAPITAL"));
@@ -77,20 +66,19 @@ public class CountryDaoPostgresImpl extends PostgresBaseDao implements CountryDa
     public Country findByCode(String code) throws SQLException, ClassNotFoundException {
         Connection conn = getConnection();
 
-        String query = "SELECT * FROM country WHERE code="+ "'"+code+"'";
+        String query = "SELECT * FROM country WHERE code='" + code + "'";
 
         PreparedStatement stat = conn.prepareStatement(query);
         ResultSet rs = stat.executeQuery();
         Country country = new Country();
         while (rs.next()) {
             country.setCode(rs.getString("CODE"));
-            country.setIso3(rs.getString("ISO3"));
             country.setName(rs.getString("NAME"));
             country.setContinent(rs.getString("CONTINENT"));
             country.setRegion(rs.getString("REGION"));
             country.setSurface(rs.getDouble("SURFACEAREA"));
             country.setPopulation(rs.getInt("POPULATION"));
-            country.setGovernment(rs.getString("GOVERNMENTFORM"));
+            country.setGovernmentform(rs.getString("GOVERNMENTFORM"));
             country.setLatitude(rs.getInt("LATITUDE"));
             country.setLongitude(rs.getInt("LONGITUDE"));
             country.setCapital(rs.getString	("CAPITAL"));
@@ -112,13 +100,12 @@ public class CountryDaoPostgresImpl extends PostgresBaseDao implements CountryDa
         while (rs.next()) {
             Country country = new Country();
             country.setCode(rs.getString("CODE"));
-            country.setIso3(rs.getString("ISO3"));
             country.setName(rs.getString("NAME"));
             country.setContinent(rs.getString("CONTINENT"));
             country.setRegion(rs.getString("REGION"));
             country.setSurface(rs.getDouble("SURFACEAREA"));
             country.setPopulation(rs.getInt("POPULATION"));
-            country.setGovernment(rs.getString("GOVERNMENTFORM"));
+            country.setGovernmentform(rs.getString("GOVERNMENTFORM"));
             country.setLatitude(rs.getInt("LATITUDE"));
             country.setLongitude(rs.getInt("LONGITUDE"));
             country.setCapital(rs.getString	("CAPITAL"));
@@ -141,13 +128,12 @@ public class CountryDaoPostgresImpl extends PostgresBaseDao implements CountryDa
         while (rs.next()) {
             Country country = new Country();
             country.setCode(rs.getString("CODE"));
-            country.setIso3(rs.getString("ISO3"));
             country.setName(rs.getString("NAME"));
             country.setContinent(rs.getString("CONTINENT"));
             country.setRegion(rs.getString("REGION"));
             country.setSurface(rs.getDouble("SURFACEAREA"));
             country.setPopulation(rs.getInt("POPULATION"));
-            country.setGovernment(rs.getString("GOVERNMENTFORM"));
+            country.setGovernmentform(rs.getString("GOVERNMENTFORM"));
             country.setLatitude(rs.getInt("LATITUDE"));
             country.setLongitude(rs.getInt("LONGITUDE"));
             country.setCapital(rs.getString	("CAPITAL"));

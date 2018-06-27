@@ -7,7 +7,7 @@ import nl.hu.v1wac.firstapp.model.Country;
 
 public interface CountryDao {
 
-	public boolean save(String code, String iso3, String nm, String cap, String ct, String reg, double sur, int pop, String gov, double lat, double lng) throws SQLException, ClassNotFoundException;
+	public boolean save(String code, String name, String capital, String continent, String region, double surfacearea, int population, String governmentform) throws SQLException, ClassNotFoundException;
 	
 	public List<Country> findAll() throws SQLException, ClassNotFoundException;
 	

@@ -23,13 +23,12 @@ function initPage() {
 }
 
 function showWeather(lat, long, city) {
-	var uri = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + 	 "&appid=a76d194b2adccf904633de0fb698bf82&units=metric";
+	var uri = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&appid=a76d194b2adccf904633de0fb698bf82&units=metric";
 	fetch(uri)
 		.then(response => response.json())
 		.then(function(myJson){		
-			var temp = " graden";
 			var stad = document.querySelector("#stad").innerHTML = city;
-			var temperatuur = document.querySelector("#temperatuur").innerHTML = myJson.main.temp + temp;
+			var temperatuur = document.querySelector("#temperatuur").innerHTML = myJson.main.temp;
 			var luchtvochtigheid = document.querySelector("#luchtvochtigheid").innerHTML = myJson.main.humidity;
 			var windsnelheid = document.querySelector("#windsnelheid").innerHTML = myJson.wind.speed;
 			var windrichting = document.querySelector("#windrichting").innerHTML = myJson.wind.deg;
@@ -66,6 +65,7 @@ function loadCountries() {
 		.then(response => response.json())
 		.then(function(myJson){
 			for(const country of myJson){
+				console.log(country.lat + "country");
 				var table = document.getElementById("table");
 				var row = table.insertRow(1);
 				var cell1 = row.insertCell(0);
@@ -83,8 +83,8 @@ function loadCountries() {
 				cell3.innerHTML = country.Region;
 				cell4.innerHTML = country.Surface;
 				cell5.innerHTML = country.Population;
-				cell6.innerHTML = country.Lat;
-				cell7.innerHTML = country.Lng;				
+				cell6.innerHTML = country.Latitude;
+				cell7.innerHTML = country.Longitude;				
 			}
 			
 			table = document.querySelectorAll("#table tr");
